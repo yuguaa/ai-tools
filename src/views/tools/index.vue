@@ -27,7 +27,6 @@ const active = ref(0)
 const tabStyle = {
   background: '#000',
   border: true,
-  color: '#9a82ea',
   'line-height': 2,
   'title-active-color': '#f5f5f5',
   // animated: true,
