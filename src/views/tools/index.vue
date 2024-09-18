@@ -1,38 +1,35 @@
 <template>
-  <main class="p-2">
-    <div class="grid grid-cols-2 gap-4 mt-4">
-      <div v-for="tool in tools" :key="tool.id" class="bg-white rounded-lg shadow-md overflow-hidden relative">
-        <img :src="tool.image" alt="" class="w-full h-48 object-contain" />
-        <div class="p-1 absolute top-0 right-0 bg-slate-100 rounded-lg">
-          <div class="text-lg font-bold">{{ tool.name }}</div>
-        </div>
-      </div>
-    </div>
+  <main class="bg-black h-screen w-screen text-white text-sm overflow-hidden">
+    <van-tabs v-model:active="active" v-bind="tabStyle">
+      <van-tab title="旧照片修复">
+        <Renew />
+      </van-tab>
+      <van-tab title="证件照制作">
+        <IdCard />
+      </van-tab>
+      <van-tab title="图片转卡通">
+        <Cartoon />
+      </van-tab>
+      <van-tab title="模板换脸">
+        <FaceSwap />
+      </van-tab>
+    </van-tabs>
   </main>
 </template>
 <script setup>
 import { ref } from 'vue'
 // 旧照片修复，证件照制作，图片转卡通，模板换脸
-const tools = ref([
-  {
-    id: 1,
-    name: '旧照片修复',
-    image: 'https://img.yzcdn.cn/vant/apple-1.jpg',
-  },
-  {
-    id: 2,
-    name: '证件照制作',
-    image: 'https://img.yzcdn.cn/vant/apple-2.jpg',
-  },
-  {
-    id: 3,
-    name: '图片转卡通',
-    image: 'https://img.yzcdn.cn/vant/apple-3.jpg',
-  },
-  {
-    id: 4,
-    name: '模板换脸',
-    image: 'https://img.yzcdn.cn/vant/apple-4.jpg',
-  },
-])
+import Renew from './components/Renew/index.vue'
+import IdCard from './components/IdCard/index.vue'
+import Cartoon from './components/Cartoon/index.vue'
+import FaceSwap from './components/FaceSwap/index.vue'
+const active = ref(0)
+const tabStyle = {
+  background: '#000',
+  border: true,
+  color: '#9a82ea',
+  'line-height': 2,
+  'title-active-color': '#f5f5f5',
+  // animated: true,
+}
 </script>

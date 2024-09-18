@@ -13,5 +13,5 @@ const checkUserLogin = () => {
     router.push('/login')
   }
 }
-checkUserLogin()
+// checkUserLogin()
 </script>
