@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-screen flex items-center p-4">
+  <!-- <div class="w-full h-screen flex items-center p-4">
     <Card class="w-full">
       <CardHeader>
         <CardTitle>登录</CardTitle>
@@ -19,30 +19,19 @@
         <Button @click="login">登录</Button>
       </CardFooter>
     </Card>
-  </div>
+  </div> -->
 </template>
 <script setup>
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Button } from '@/components/ui/button'
-import { useRouter } from 'vue-router'
-import { ref } from 'vue'
-import { getToken, setToken } from '@/lib/token'
-const router = useRouter()
-const name = ref('')
+// import { useRouter } from 'vue-router'
+// import { ref } from 'vue'
+// import { getToken, setToken } from '@/lib/token'
+// const router = useRouter()
+// const name = ref('')
 
-const login = () => {
-  if (name.value) {
-    setToken(name.value)
-    router.push('/tools')
-  }
-}
+// const login = () => {
+//   if (name.value) {
+//     setToken(name.value)
+//     router.push('/tools')
+//   }
+// }
 </script>
