@@ -333,15 +333,12 @@ const handleGen = async () => {
     }
     // const bgRes = await addBackground(photo.value, color)
 
-    // const res = await generateIdPhoto(photo.value, height, width)
-    // console.log(`🚀 ~ res:`, res)
-    setTimeout(() => {
-      setLoading(false)
-    }, 5000);
+    const res = await generateIdPhoto(photo.value, height, width)
+    console.log(`🚀 ~ res:`, res)
   } catch (error) {
     console.log(`🚀 ~ error:`, error)
   } finally {
-    // setLoading(false)
+    setLoading(false)
   }
 }
 </script>

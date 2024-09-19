@@ -1,5 +1,5 @@
 <template>
-  <div class="text-[12px] p-2  overflow-auto h-[calc(100vh-44px)]">
+  <div class="text-[12px] p-4 overflow-auto h-[calc(100vh-44px)]">
     <div class="flex justify-between">
       <div>
         <span>*</span>

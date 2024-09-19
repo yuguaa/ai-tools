@@ -25,8 +25,15 @@ export default function useLoading() {
       });
       animation.value.play()
     }
-    animation.value.addEventListener('DOMLoaded',()=>{
+    animation.value.addEventListener('config_ready',()=>{
       changeBodyScroll(false)
+      console.log('configready')
+    })
+    animation.value.addEventListener('data_ready',()=>{
+      console.log('data_ready')
+    })
+    animation.value.addEventListener('DOMLoaded',()=>{
+      console.log('DOMLoaded')
     })
     animation.value.addEventListener('destroy',()=>{
       changeBodyScroll(true)

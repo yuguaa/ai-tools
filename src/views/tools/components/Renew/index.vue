@@ -83,7 +83,7 @@ const handleGen = async () => {
     });
     const [outputImage, downloadImage] = result.data;
     console.log(`🚀 ~ outputImage,downloadImage:`, outputImage, downloadImage)
-    preview.value = outputImage.url;
+    preview.value = downloadImage.url;
   } catch (error) {
     console.log(`🚀 ~ error:`, error)
   } finally {

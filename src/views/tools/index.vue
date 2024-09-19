@@ -7,12 +7,12 @@
       <van-tab title="证件照制作">
         <IdCard />
       </van-tab>
-      <van-tab title="图片转卡通">
+      <!-- <van-tab title="图片转卡通">
         <Cartoon />
       </van-tab>
       <van-tab title="模板换脸">
         <FaceSwap />
-      </van-tab>
+      </van-tab> -->
     </van-tabs>
   </main>
 </template>
@@ -23,7 +23,7 @@ import Renew from './components/Renew/index.vue'
 import IdCard from './components/IdCard/index.vue'
 import Cartoon from './components/Cartoon/index.vue'
 import FaceSwap from './components/FaceSwap/index.vue'
-const active = ref(1)
+const active = ref(0)
 const tabStyle = {
   background: '#000',
   border: true,
