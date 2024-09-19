@@ -4,10 +4,10 @@ import lottie from 'lottie-web';
 export default function useLoading() {
   const isLoading = ref(false);
   const animation = ref(null);
-  const changeBodyScroll = (canScroll)=>{
-    if(canScroll){
+  const changeBodyScroll = (canScroll) => {
+    if (canScroll) {
       document.body.classList.remove('pointer-events-none')
-    }else{
+    } else {
       document.body.classList.add('pointer-events-none')
     }
   }
@@ -18,24 +18,25 @@ export default function useLoading() {
     } else {
       animation.value = lottie.loadAnimation({
         container: document.querySelector('#lottie-loading'), // 动画容器
-        path:'/lottie/loading.json', // 动画文件路径
+        path: import.meta.env.VITE_APP_BASE + '/lottie/loading.json', // 动画文件路径
         renderer: 'svg', // 渲染方式 (可根据需要调整)
         loop: true,
         autoplay: true
       });
+
       animation.value.play()
     }
-    animation.value.addEventListener('config_ready',()=>{
+    animation.value.addEventListener('config_ready', () => {
       changeBodyScroll(false)
       console.log('configready')
     })
-    animation.value.addEventListener('data_ready',()=>{
+    animation.value.addEventListener('data_ready', () => {
       console.log('data_ready')
     })
-    animation.value.addEventListener('DOMLoaded',()=>{
+    animation.value.addEventListener('DOMLoaded', () => {
       console.log('DOMLoaded')
     })
-    animation.value.addEventListener('destroy',()=>{
+    animation.value.addEventListener('destroy', () => {
       changeBodyScroll(true)
     })
   };

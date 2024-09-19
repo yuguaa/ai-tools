@@ -10,6 +10,7 @@ import { VantResolver } from '@vant/auto-import-resolver';
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd())
   return {
+    base:env.VITE_APP_BASE,
     plugins: [
       vue(),
       vueJsx(),
