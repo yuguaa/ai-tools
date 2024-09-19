@@ -23,7 +23,7 @@ import Renew from './components/Renew/index.vue'
 import IdCard from './components/IdCard/index.vue'
 import Cartoon from './components/Cartoon/index.vue'
 import FaceSwap from './components/FaceSwap/index.vue'
-const active = ref(0)
+const active = ref(1)
 const tabStyle = {
   background: '#000',
   border: true,

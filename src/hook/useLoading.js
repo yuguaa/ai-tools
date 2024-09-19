@@ -4,7 +4,13 @@ import lottie from 'lottie-web';
 export default function useLoading() {
   const isLoading = ref(false);
   const animation = ref(null);
-
+  const changeBodyScroll = (canScroll)=>{
+    if(canScroll){
+      document.body.classList.remove('pointer-events-none')
+    }else{
+      document.body.classList.add('pointer-events-none')
+    }
+  }
   const startLoading = () => {
     isLoading.value = true;
     if (animation.value) {
@@ -19,7 +25,14 @@ export default function useLoading() {
       });
       animation.value.play()
     }
+    animation.value.addEventListener('DOMLoaded',()=>{
+      changeBodyScroll(false)
+    })
+    animation.value.addEventListener('destroy',()=>{
+      changeBodyScroll(true)
+    })
   };
+
 
   const stopLoading = () => {
     isLoading.value = false;

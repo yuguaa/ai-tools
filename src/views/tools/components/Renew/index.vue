@@ -32,10 +32,13 @@
           <van-stepper button-size="20" theme="round" v-model="Rescaling_Factor" disable-input :min="-100" /><span
             class="ml-2">变化因子</span>
         </van-col>
-        <van-col class="mt-2" span="12">
-          <div class="flex items-center">
+        <van-col class="mt-2" span="24">
+          <div>
+            <div class="mb-3">
+              <span class="mr-2">精确度</span>
+              <span>{{ Codeformer_Fidelity }}</span>
+            </div>
             <van-slider v-model="Codeformer_Fidelity" :min="0" :max="1" :step="0.01"></van-slider>
-            <span class="ml-2 flex-shrink-0">精确度</span>
           </div>
         </van-col>
       </van-row>
@@ -48,7 +51,7 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { showToast } from 'vant';
 import { Client } from "@gradio/client";
 import ImageUploader from '@/components/ImageUploader/index.vue'
