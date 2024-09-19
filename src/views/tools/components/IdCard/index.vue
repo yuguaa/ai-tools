@@ -20,7 +20,7 @@
             <span>标准照</span>
           </div>
         </div>
-        <ImagePreview class="mt-2" v-model:value="preview.hd" />
+        <ImagePreview class="mt-2" downloadName="标准照" v-model:value="preview.hd" />
       </van-col>
       <van-col :span="12">
         <div class="flex justify-between mt-2">
@@ -28,7 +28,7 @@
             <span>高清照</span>
           </div>
         </div>
-        <ImagePreview class="mt-2" v-model:value="preview.common" />
+        <ImagePreview class="mt-2" downloadName="高清照" v-model:value="preview.common" />
       </van-col>
     </van-row>
     <div class="mt-2 px-2">
@@ -37,7 +37,7 @@
           <span>六寸排版照</span>
         </div>
       </div>
-      <ImagePreview class="mt-2" v-model:value="preview.screen" />
+      <ImagePreview class="mt-2" downloadName="六寸排版照" v-model:value="preview.screen" />
     </div>
 
     <div class="mt-2 flex justify-between">
@@ -255,8 +255,11 @@ const params = ref({
 const chicun = ref('chicunliebiao')
 const active = ref(0)
 
-const IDURL = 'http://172.21.0.90:8080'
-
+let IDURL = import.meta.env.VITE_APP_IDCARD_URL
+if (import.meta.env.MODE === 'development') {
+  IDURL = '/idcard'
+}
+console.log(`🚀 ~ IDURL:`, IDURL)
 const generateIdPhoto = async (inputImagePath, height, width) => {
   const url = `${IDURL}/idphoto`;
   const formData = new FormData();
@@ -268,9 +271,7 @@ const generateIdPhoto = async (inputImagePath, height, width) => {
     method: 'POST',
     body: formData
   });
-
   const result = await response.json();
-  console.log(`🚀 ~ result:`, result)
   return result;
 }
 const addBackground = async (inputImagePath, color, kb = 200) => {
@@ -289,7 +290,8 @@ const addBackground = async (inputImagePath, color, kb = 200) => {
   console.log(`🚀 ~ result:`, result)
   return result;
 }
-async function generateLayoutPhotos(inputImagePath, height, width, kb = 200) {
+
+const generateLayoutPhotos = async (inputImagePath, height, width, kb = 200) => {
   const url = `${IDURL}/generate_layout_photos`;
   const formData = new FormData();
   formData.append("input_image", new File([await fetch(inputImagePath).then(res => res.blob())], "test.jpg"));
@@ -306,6 +308,7 @@ async function generateLayoutPhotos(inputImagePath, height, width, kb = 200) {
   console.log(`🚀 ~ result:`, result)
   return result;
 }
+
 const rgbToHex = (r, g, b) => {
   const componentToHex = (c) => {
     const hex = c.toString(16);
@@ -331,10 +334,52 @@ const handleGen = async () => {
     if (params.value.beijingse === '自定义底色') {
       color = rgbToHex(params.value.r, params.value.g, params.value.b)
     }
-    // const bgRes = await addBackground(photo.value, color)
-
     const res = await generateIdPhoto(photo.value, height, width)
     console.log(`🚀 ~ res:`, res)
+
+    if (res.status) {
+      setLoading(true)
+      const [hd, common] = await Promise.all([addBackground(res.image_base64_hd, color), addBackground(res.image_base64_standard, color)])
+      console.log(`🚀 ~ hd:`, hd)
+      if (hd.status) {
+        preview.value.hd = hd.image_base64
+      } else {
+        showToast('高清图生成失败~')
+        setLoading(false)
+      }
+      if (common.status) {
+        preview.value.common = common.image_base64
+      } else {
+        showToast('标准图生成失败')
+        setLoading(false)
+      }
+      if (!hd.status && !common.status) {
+        showToast('背景添加失败')
+        setLoading(false)
+        return
+      } else {
+        setLoading(true)
+        let screen
+        if (common.status) {
+          screen = common.image_base64
+        }
+        if (hd.status) {
+          screen = hd.image_base64
+        }
+        const screenRes = await generateLayoutPhotos(screen, height, width)
+        console.log(`🚀 ~ screenRes:`, screenRes)
+        if (screenRes.status) {
+          preview.value.screen = screenRes.image_base64
+          setLoading(false)
+        } else {
+          setLoading(false)
+          showToast('排版照生成失败了~')
+        }
+      }
+    } else {
+      showToast('生成失败了~')
+      setLoading(false)
+    }
   } catch (error) {
     console.log(`🚀 ~ error:`, error)
   } finally {

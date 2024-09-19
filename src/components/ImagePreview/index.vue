@@ -14,12 +14,16 @@ const props = defineProps({
   value: {
     type: String,
     default: ''
+  },
+  downloadName: {
+    type: String,
+    default: 'download'
   }
 })
 const handleDownload = () => {
   const a = document.createElement('a')
   a.href = props.value
-  a.download = 'download'
+  a.download = props.downloadName
   a.click()
 }
 </script>

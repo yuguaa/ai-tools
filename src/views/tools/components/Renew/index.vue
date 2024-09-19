@@ -13,7 +13,7 @@
         <span>生成图片</span>
       </div>
     </div>
-    <ImagePreview class="mt-2" v-model:value="preview" />
+    <ImagePreview class="mt-2" downloadName="复原图" v-model:value="preview" />
     <div class="mt-2 flex justify-between">
       <div>
         <span>*</span>
@@ -73,7 +73,9 @@ const handleGen = async () => {
     setLoading(true)
     const response_0 = await fetch(photo.value);
     const exampleImage = await response_0.blob();
-    const client = await Client.connect("http://172.21.0.90:7867/");
+    const url = import.meta.env.VITE_APP_RENEW_URL
+    console.log(`🚀 ~ url:`, url)
+    const client = await Client.connect(url);
     const result = await client.predict("/predict", {
       image: exampleImage,
       background_enhance: Background_Enhance.value,
