@@ -10,6 +10,7 @@
 </template>
 <script setup>
 import { ref, defineProps, defineEmits } from 'vue'
+import { showImagePreview } from 'vant';
 const props = defineProps({
   value: {
     type: String,
@@ -21,9 +22,13 @@ const props = defineProps({
   }
 })
 const handleDownload = () => {
-  const a = document.createElement('a')
-  a.href = props.value
-  a.download = props.downloadName
-  a.click()
+  // const a = document.createElement('a')
+  // a.href = props.value
+  // a.download = props.downloadName
+  // a.click()
+  showImagePreview({
+    images: [props.value],
+    startPosition: 0
+  });
 }
 </script>
