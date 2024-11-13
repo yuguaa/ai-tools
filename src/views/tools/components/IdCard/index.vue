@@ -13,7 +13,15 @@
         <span>生成图片</span>
       </div>
     </div>
-    <van-row :gutter="[20, 20]" class="px-2">
+    <div>
+      <div class="flex justify-between mt-2">
+        <div>
+          <span>标准照</span>
+        </div>
+      </div>
+      <ImagePreview class="mt-2" downloadName="标准照" v-model:value="preview.hd" />
+    </div>
+    <!-- <van-row :gutter="[20, 20]" class="px-2">
       <van-col :span="12">
         <div class="flex justify-between mt-2">
           <div>
@@ -30,15 +38,15 @@
         </div>
         <ImagePreview class="mt-2" downloadName="高清照" v-model:value="preview.common" />
       </van-col>
-    </van-row>
-    <div class="mt-2 px-2">
+    </van-row> -->
+    <!-- <div class="mt-2 px-2">
       <div class="flex justify-between mt-2">
         <div>
           <span>六寸排版照</span>
         </div>
       </div>
       <ImagePreview class="mt-2" downloadName="六寸排版照" v-model:value="preview.screen" />
-    </div>
+    </div> -->
 
     <div class="mt-2 flex justify-between">
       <div>
@@ -353,29 +361,29 @@ const handleGen = async () => {
         showToast('标准图生成失败')
         setLoading(false)
       }
-      if (!hd.status && !common.status) {
-        showToast('背景添加失败')
-        setLoading(false)
-        return
-      } else {
-        setLoading(true)
-        let screen
-        if (common.status) {
-          screen = common.image_base64
-        }
-        if (hd.status) {
-          screen = hd.image_base64
-        }
-        const screenRes = await generateLayoutPhotos(screen, height, width)
-        console.log(`🚀 ~ screenRes:`, screenRes)
-        if (screenRes.status) {
-          preview.value.screen = screenRes.image_base64
-          setLoading(false)
-        } else {
-          setLoading(false)
-          showToast('排版照生成失败了~')
-        }
-      }
+      // if (!hd.status && !common.status) {
+      //   showToast('背景添加失败')
+      //   setLoading(false)
+      //   return
+      // } else {
+      //   setLoading(true)
+      //   let screen
+      //   if (common.status) {
+      //     screen = common.image_base64
+      //   }
+      //   if (hd.status) {
+      //     screen = hd.image_base64
+      //   }
+      //   const screenRes = await generateLayoutPhotos(screen, height, width)
+      //   console.log(`🚀 ~ screenRes:`, screenRes)
+      //   if (screenRes.status) {
+      //     preview.value.screen = screenRes.image_base64
+      //     setLoading(false)
+      //   } else {
+      //     setLoading(false)
+      //     showToast('排版照生成失败了~')
+      //   }
+      // }
     } else {
       showToast('生成失败了~')
       setLoading(false)
